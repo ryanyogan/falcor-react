@@ -5,39 +5,40 @@ import { pick, union } from 'lodash';
 const $ref = falcor.Model.ref;
 const $atom = falcor.Model.atom;
 
-const model = new falcor.Model({
-  cache: {
-    ingredientsById: {
-      1: {
-        name: 'Flour',
-        description: 'white and full of carbs'
-      },
-      2: {
-        name: 'Chocolate Chips',
-        description: 'delicious'
-      }
-    },
-    recipes: [
-      {
-        name: "Cookies",
-        instructions: "Bake them lol:",
-        ingredients: [
-          $ref('ingredientsById[1]'),
-          $ref('ingredientsById[2]')
-        ],
-        authors: { $type: "atom", value: ['Ryan', 'John', 'Billy'] }
-      },
-      {
-        name: "Brownies",
-        instructions: "Bake them rofl",
-        ingredients: [
-          $ref('ingredientsById[1]')
-        ],
-        authors: { $type: "atom", value: ['Bob', 'Brian'] }
-      }
-    ]
-  }
-});
+const model = new falcor.Model({ source: new falcor.HttpDataSource('/model.json') });
+// const model = new falcor.Model({
+  // cache: {
+  //   ingredientsById: {
+  //     1: {
+  //       name: 'Flour',
+  //       description: 'white and full of carbs'
+  //     },
+  //     2: {
+  //       name: 'Chocolate Chips',
+  //       description: 'delicious'
+  //     }
+  //   },
+  //   recipes: [
+  //     {
+  //       name: "Cookies",
+  //       instructions: "Bake them lol:",
+  //       ingredients: [
+  //         $ref('ingredientsById[1]'),
+  //         $ref('ingredientsById[2]')
+  //       ],
+  //       authors: { $type: "atom", value: ['Ryan', 'John', 'Billy'] }
+  //     },
+  //     {
+  //       name: "Brownies",
+  //       instructions: "Bake them rofl",
+  //       ingredients: [
+  //         $ref('ingredientsById[1]')
+  //       ],
+  //       authors: { $type: "atom", value: ['Bob', 'Brian'] }
+  //     }
+  //   ]
+  // }
+// });
 
 class App extends Component {
   render() {

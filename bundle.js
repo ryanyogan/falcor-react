@@ -78,31 +78,40 @@
 	var $ref = falcor.Model.ref;
 	var $atom = falcor.Model.atom;
 
-	var model = new falcor.Model({
-	  cache: {
-	    ingredientsById: {
-	      1: {
-	        name: 'Flour',
-	        description: 'white and full of carbs'
-	      },
-	      2: {
-	        name: 'Chocolate Chips',
-	        description: 'delicious'
-	      }
-	    },
-	    recipes: [{
-	      name: "Cookies",
-	      instructions: "Bake them lol:",
-	      ingredients: [$ref('ingredientsById[1]'), $ref('ingredientsById[2]')],
-	      authors: { $type: "atom", value: ['Ryan', 'John', 'Billy'] }
-	    }, {
-	      name: "Brownies",
-	      instructions: "Bake them rofl",
-	      ingredients: [$ref('ingredientsById[1]')],
-	      authors: { $type: "atom", value: ['Bob', 'Brian'] }
-	    }]
-	  }
-	});
+	var model = new falcor.Model({ source: new falcor.HttpDataSource('/model.json') });
+	// const model = new falcor.Model({
+	// cache: {
+	//   ingredientsById: {
+	//     1: {
+	//       name: 'Flour',
+	//       description: 'white and full of carbs'
+	//     },
+	//     2: {
+	//       name: 'Chocolate Chips',
+	//       description: 'delicious'
+	//     }
+	//   },
+	//   recipes: [
+	//     {
+	//       name: "Cookies",
+	//       instructions: "Bake them lol:",
+	//       ingredients: [
+	//         $ref('ingredientsById[1]'),
+	//         $ref('ingredientsById[2]')
+	//       ],
+	//       authors: { $type: "atom", value: ['Ryan', 'John', 'Billy'] }
+	//     },
+	//     {
+	//       name: "Brownies",
+	//       instructions: "Bake them rofl",
+	//       ingredients: [
+	//         $ref('ingredientsById[1]')
+	//       ],
+	//       authors: { $type: "atom", value: ['Bob', 'Brian'] }
+	//     }
+	//   ]
+	// }
+	// });
 
 	var App = (function (_Component) {
 	  _inherits(App, _Component);

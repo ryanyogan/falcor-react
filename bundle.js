@@ -75,9 +75,8 @@
 
 	var _lodash = __webpack_require__(159);
 
-	var _lodash2 = _interopRequireDefault(_lodash);
-
 	var $ref = falcor.Model.ref;
+	var $atom = falcor.Model.atom;
 
 	var model = new falcor.Model({
 	  cache: {
@@ -144,7 +143,7 @@
 
 	      model.get(['recipes', { from: 0, to: 9 }, Recipe.queries.recipe()], ['recipes', { from: 0, to: 9 }, 'ingredients', { from: 0, to: 9 }, Ingredients.queries.ingredients()]).then(function (data) {
 	        _this.setState({
-	          recipes: _lodash2['default'].values(data.json.recipes)
+	          recipes: _.values(data.json.recipes)
 	        });
 	      });
 	    }
@@ -181,8 +180,8 @@
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
-	        _react2['default'].createElement(Name, { name: this.props.name }),
-	        _react2['default'].createElement(Instructions, { instructions: this.props.instructions }),
+	        _react2['default'].createElement(Name, (0, _lodash.pick)(this.props, Name.queries.recipe())),
+	        _react2['default'].createElement(Instructions, (0, _lodash.pick)(this.props, Instructions.queries.recipe())),
 	        _react2['default'].createElement(Ingredients, { ingredients: this.props.ingredients })
 	      );
 	    }
@@ -193,7 +192,7 @@
 
 	Recipe.queries = {
 	  recipe: function recipe() {
-	    return _lodash2['default'].union(Name.queries.recipe(), Instructions.queries.recipe());
+	    return (0, _lodash.union)(Name.queries.recipe(), Instructions.queries.recipe());
 	  }
 	};
 
@@ -210,9 +209,18 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
-	        'h1',
+	        'div',
 	        null,
-	        this.props.name
+	        _react2['default'].createElement(
+	          'h1',
+	          null,
+	          this.props.name
+	        ),
+	        _react2['default'].createElement(
+	          'h1',
+	          null,
+	          this.props.authors.join(', ')
+	        )
 	      );
 	    }
 	  }]);
@@ -222,7 +230,7 @@
 
 	Name.queries = {
 	  recipe: function recipe() {
-	    return ["name"];
+	    return ["name", "authors"];
 	  }
 	};
 

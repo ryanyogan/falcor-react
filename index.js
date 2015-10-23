@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import _ from 'lodash';
+import { pick, union } from 'lodash';
 
 const $ref = falcor.Model.ref;
+const $atom = falcor.Model.atom;
 
 const model = new falcor.Model({
   cache: {
@@ -84,8 +85,8 @@ class Recipe extends Component {
   render() {
     return (
       <div>
-        <Name name={this.props.name} />
-        <Instructions instructions={this.props.instructions} />
+        <Name {...pick(this.props, Name.queries.recipe() )} />
+        <Instructions {... pick(this.props, Instructions.queries.recipe() )} />
         <Ingredients ingredients={this.props.ingredients} />
       </div>
     );
@@ -94,21 +95,24 @@ class Recipe extends Component {
 
 Recipe.queries = {
   recipe() {
-    return _.union(Name.queries.recipe(), Instructions.queries.recipe());
+    return union(Name.queries.recipe(), Instructions.queries.recipe());
   }
 }
 
 class Name extends Component {
   render() {
     return (
-      <h1>{this.props.name}</h1>
+      <div>
+        <h1>{this.props.name}</h1>
+        <h1>{this.props.authors.join(', ')}</h1>
+      </div>
     );
   }
 }
 
 Name.queries = {
   recipe() {
-    return ["name"];
+    return ["name", "authors"];
   }
 }
 
